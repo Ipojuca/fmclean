@@ -10,8 +10,8 @@ variables P Q R : Prop
 theorem doubleneg_intro :
   P → ¬¬P  :=
 begin
-  intro hp,
-  intro hnP,
+  intro hP,
+  intro hnnP,
   contradiction, 
 end
 
@@ -19,8 +19,8 @@ theorem doubleneg_elim :
   ¬¬P → P  :=
 begin
   intro  hnnP,
-  by_cases hnP : P,
-  exact hnP,
+  by_cases hP : P,
+  exact hP,
   contradiction,
 end
 
@@ -40,21 +40,21 @@ theorem disj_comm :
   (P ∨ Q) → (Q ∨ P)  :=
 begin
   intro h,
-  cases h with hp hq,
-  right,
-  exact hp,
-  left,
-  exact hq,
+  cases h with hP hQ,
+        right,
+        exact hP,
+        left,
+        exact hQ,
 end
 
 theorem conj_comm :
   (P ∧ Q) → (Q ∧ P)  :=
 begin
   intro h,
-  cases h with hp hq,
-  split,
-  exact hq,
-  exact hp,
+  cases h with hP hQ,
+        split,
+        exact hQ,
+        exact hP,
 end
 
 
@@ -66,18 +66,18 @@ theorem impl_as_disj_converse :
   (¬P ∨ Q) → (P → Q)  :=
 begin
   intros h hp,
-  cases h with hnp hq,
-  contradiction,
-  exact hq,
+  cases h with hnP hQ,
+        contradiction,
+        exact hQ,
 end
 
 theorem disj_as_impl :
   (P ∨ Q) → (¬P → Q)  :=
 begin
-  intros h hnp,
-  cases h with hnp hq,
-  contradiction,
-  exact hq,
+  intros h hnP,
+  cases h with hnP hQ,
+        contradiction,
+        exact hQ,
 end
 
 
@@ -88,21 +88,20 @@ end
 theorem impl_as_contrapositive :
   (P → Q) → (¬Q → ¬P)  :=
 begin
-  intros h hnq hp,
-  apply hnq,
+  intros h hnQ hP,
+  apply hnQ,
   apply h,
-  exact hp,
+  exact hP,
 end
 
 theorem impl_as_contrapositive_converse :
   (¬Q → ¬P) → (P → Q)  :=
 begin
-  intro h,
-  intro hp,
-  by_contra hq,
-  apply h,
-  exact hq,
-  exact hp, 
+  intros h hP,
+  by_contra hQ,
+     apply h,
+     exact hQ,
+     exact hP, 
 end
 
 theorem contrapositive_law :
@@ -125,10 +124,10 @@ begin
   apply h,
   
   by_cases hP : P,
-  left,
-  exact hP,
-  right,
-  exact hP,
+     left,
+     exact hP,
+     right,
+     exact hP,
 end
 
 
@@ -155,25 +154,26 @@ end
 theorem disj_as_negconj :
   P∨Q → ¬(¬P∧¬Q)  :=
 begin
-  intro hOr,
-  intro hAnd,
-  cases hOr with hP,
-  cases hAnd with hP2,
-    contradiction,
-  cases hAnd with hQ,
-    contradiction,
+  intro h,
+  intro hnPnQ,
+  cases h with hP,
+    cases hnPnQ with hnP hnQ,
+      contradiction,
+    cases hnPnQ with hnP hnQ,
+      contradiction,
 
 end
 
 theorem conj_as_negdisj :
   P∧Q → ¬(¬P∨¬Q)  :=
 begin
-  intro hAnd,
-  intro hOr,
-  cases hAnd with hP,
-  cases hOr with hP2,
-    contradiction,
-    contradiction,
+  intro h,
+  intro hnPnQ,
+  cases hnPnQ with hnP hnQ,
+    cases h with hP hQ,
+      contradiction,
+    cases h with hP hQ,
+      contradiction,
 end
 
 
@@ -184,14 +184,14 @@ end
 theorem demorgan_disj :
   ¬(P∨Q) → (¬P ∧ ¬Q)  :=
 begin
-  intro hOr,
+  intro h,
   split,
-  intro hp,
-  apply hOr,
+  intro hP,
+  apply h,
   left,
-  exact hp,
+  exact hP,
   intro hQ,
-  apply hOr,
+  apply h,
   right,
   exact hQ,
 end
@@ -199,30 +199,28 @@ end
 theorem demorgan_disj_converse :
   (¬P ∧ ¬Q) → ¬(P∨Q)  :=
 begin
-  intro hAnd,
-  intro hOr,
-  cases hAnd,
-  cases hOr,
-  contradiction,
-  contradiction,
+  intro h,
+  intro hPQ,
+  cases h with hnP hnQ,
+    cases hPQ with hP hQ,
+      contradiction,
+      contradiction,
 end
 -- Prove de Morgan's.
 
 theorem demorgan_conj :
   ¬(P∧Q) → (¬Q ∨ ¬P)  :=
 begin
-  intro hAnd,
-  
-  right,
+  intro hPQ,
+  left,
+  intro hQ,
+  apply hPQ,
+  split,
+  by_cases hP: P,
+  exact hP,
+  by_contra,
+  apply hPQ,
 
-  intro hP,
-  apply hAnd,
-  split,
-  exact hP,
-  by_contra h,
-  apply hAnd,
-  split,
-  exact hP,
   
 
 
@@ -293,13 +291,36 @@ end
 theorem distr_disj_conj :
   P∨(Q∧R) → (P∨Q)∧(P∨R)  :=
 begin
-  sorry,
+  intro h,
+  split,
+  cases h with hP hQR,
+        left, 
+        exact hP,
+  cases hQR with hQ hR,
+        right,
+        exact hQ,
+  cases h with hP hQR,
+        left,
+        exact hP,
+        right,
+  cases hQR with hQ hR,
+        exact hR,
 end
 
 theorem distr_disj_conj_converse :
   (P∨Q)∧(P∨R) → P∨(Q∧R)  :=
 begin
-  sorry,
+  intro h,
+  left,
+  cases h with hPQ hPR,
+  cases hPQ with hP hQ,
+    exact hP,
+  cases hPR with hP hR,
+    exact hP,
+  by_cases hP: P,
+    exact hP,
+  
+
 end
 
 
