@@ -206,17 +206,39 @@ begin
   contradiction,
   contradiction,
 end
+-- Prove de Morgan's.
 
 theorem demorgan_conj :
   ¬(P∧Q) → (¬Q ∨ ¬P)  :=
 begin
+  intro hAnd,
   
+  right,
+
+  intro hP,
+  apply hAnd,
+  split,
+  exact hP,
+  by_contra h,
+  apply hAnd,
+  split,
+  exact hP,
+  
+
+
 end
 
 theorem demorgan_conj_converse :
   (¬Q ∨ ¬P) → ¬(P∧Q)  :=
 begin
-  sorry,
+  intros hOr hAnd,
+  cases hOr,
+  cases hAnd,
+  apply hOr,
+  exact hAnd_right,
+  cases hAnd,
+  apply hOr,
+  exact hAnd_left,
 end
 
 theorem demorgan_conj_law :
@@ -238,13 +260,34 @@ end
 theorem distr_conj_disj :
   P∧(Q∨R) → (P∧Q)∨(P∧R)  :=
 begin
-  sorry,
+  intro h,
+  cases h with hP hQR,
+  cases hQR with hQ hR,
+  left,
+  split,
+  exact hP,
+  exact hQ,
+  right,
+  split,
+  exact hP,
+  exact hR,
 end
 
 theorem distr_conj_disj_converse :
   (P∧Q)∨(P∧R) → P∧(Q∨R)  :=
 begin
-  sorry,
+  intro h,
+  cases h with hPQ hPR,
+  cases hPQ with hP hQ,
+  split,
+  exact hP,
+  left,
+  exact hQ,
+  cases hPR with hP hR,
+  split,
+  exact hP,
+  right,
+  exact hR,
 end
 
 theorem distr_disj_conj :
