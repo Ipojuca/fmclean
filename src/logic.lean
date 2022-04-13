@@ -212,17 +212,20 @@ theorem demorgan_conj :
   ¬(P∧Q) → (¬Q ∨ ¬P)  :=
 begin
   intro hPQ,
+  change (P ∧ Q) → false at hPQ,
   left,
   intro hQ,
   apply hPQ,
   split,
-  by_cases hP: P,
-  exact hP,
-  by_contra,
+  have hP: P,
+  apply doubleneg_elim,
+  intro hnP,
   apply hPQ,
+  split,
 
-  
 
+  sorry,
+  exact hQ,
 
 end
 
@@ -242,13 +245,18 @@ end
 theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
-  sorry,
+  split,
+  apply demorgan_conj,
+  apply demorgan_conj_converse,
 end
 
 theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
-  sorry,
+  split,
+  apply demorgan_disj,
+  apply demorgan_disj_converse,
+
 end
 
 ------------------------------------------------
@@ -311,15 +319,14 @@ theorem distr_disj_conj_converse :
   (P∨Q)∧(P∨R) → P∨(Q∧R)  :=
 begin
   intro h,
-  left,
+  right,
+  split,
   cases h with hPQ hPR,
   cases hPQ with hP hQ,
     exact hP,
   cases hPR with hP hR,
     exact hP,
-  by_cases hP: P,
-    exact hP,
-  
+  --cases h with hPQ hPR,
 
 end
 
@@ -331,13 +338,24 @@ end
 theorem curry_prop :
   ((P∧Q)→R) → (P→(Q→R))  :=
 begin
-  sorry,
+  intros h hP hQ,
+  apply h,
+  split,
+  exact hP,
+  exact hQ,
+
 end
 
 theorem uncurry_prop :
   (P→(Q→R)) → ((P∧Q)→R)  :=
 begin
-  sorry,
+  intros h hPQ,
+  cases hPQ with hP hQ,
+  apply h,
+  exact hP,
+  exact hQ,
+  
+
 end
 
 
@@ -348,7 +366,9 @@ end
 theorem impl_refl :
   P → P  :=
 begin
-  sorry,
+  intro hP,
+  exact hP,
+
 end
 
 ------------------------------------------------
@@ -358,37 +378,59 @@ end
 theorem weaken_disj_right :
   P → (P∨Q)  :=
 begin
-  sorry,
+  intro hP,
+  left,
+  exact hP,
 end
 
 theorem weaken_disj_left :
   Q → (P∨Q)  :=
 begin
-  sorry,
+  intro hQ,
+  right,
+  exact hQ,
 end
 
 theorem weaken_conj_right :
   (P∧Q) → P  :=
 begin
-  sorry,
+  intro hPQ,
+  cases hPQ with hP hQ,
+  exact hP,
 end
 
 theorem weaken_conj_left :
   (P∧Q) → Q  :=
 begin
-  sorry,
+  intro hPQ,
+  cases hPQ with hP hQ,
+  exact hQ,
 end
 
 theorem conj_idempot :
   (P∧P) ↔ P :=
 begin
-  sorry,
+  split,
+  intro hPP,
+  cases hPP with hP,
+  exact hP,
+  intro hP,
+  split,
+  exact hP,
+  exact hP,
 end
 
 theorem disj_idempot :
   (P∨P) ↔ P  :=
 begin
-  sorry,
+  split,
+  intro hPP,
+  cases hPP with hP,
+  exact hP,
+  exact hPP,
+  intro hP,
+  left,
+  exact hP,
 end
 
 end propositional
