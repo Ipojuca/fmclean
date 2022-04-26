@@ -22,6 +22,7 @@ begin
   by_cases hP : P,
   exact hP,
   contradiction,
+  
 end
 
 theorem doubleneg_law :
@@ -41,10 +42,10 @@ theorem disj_comm :
 begin
   intro h,
   cases h with hP hQ,
-        right,
-        exact hP,
-        left,
-        exact hQ,
+    right,
+    exact hP,
+    left,
+    exact hQ,
 end
 
 theorem conj_comm :
@@ -52,9 +53,9 @@ theorem conj_comm :
 begin
   intro h,
   cases h with hP hQ,
-        split,
-        exact hQ,
-        exact hP,
+    split,
+    exact hQ,
+    exact hP,
 end
 
 
@@ -67,8 +68,8 @@ theorem impl_as_disj_converse :
 begin
   intros h hp,
   cases h with hnP hQ,
-        contradiction,
-        exact hQ,
+    contradiction,
+    exact hQ,
 end
 
 theorem disj_as_impl :
@@ -76,8 +77,8 @@ theorem disj_as_impl :
 begin
   intros h hnP,
   cases h with hnP hQ,
-        contradiction,
-        exact hQ,
+    contradiction,
+    exact hQ,
 end
 
 
@@ -99,9 +100,9 @@ theorem impl_as_contrapositive_converse :
 begin
   intros h hP,
   by_contra hQ,
-     apply h,
-     exact hQ,
-     exact hP, 
+    apply h,
+    exact hQ,
+    exact hP, 
 end
 
 theorem contrapositive_law :
@@ -124,10 +125,10 @@ begin
   apply h,
   
   by_cases hP : P,
-     left,
-     exact hP,
-     right,
-     exact hP,
+    left,
+    exact hP,
+    right,
+    exact hP,
 end
 
 
@@ -216,7 +217,7 @@ begin
     left,
     intro hQ,
     have hPQ : P ∧ Q, from and.intro hP hQ,
-    contradiction,
+      contradiction,
   right,
   exact hP,
 end
@@ -260,15 +261,15 @@ theorem distr_conj_disj :
 begin
   intro h,
   cases h with hP hQR,
-  cases hQR with hQ hR,
-  left,
-  split,
-  exact hP,
-  exact hQ,
-  right,
-  split,
-  exact hP,
-  exact hR,
+    cases hQR with hQ hR,
+        left,
+        split,
+        exact hP,
+        exact hQ,
+    right,
+    split,
+    exact hP,
+    exact hR,
 end
 
 theorem distr_conj_disj_converse :
@@ -276,16 +277,16 @@ theorem distr_conj_disj_converse :
 begin
   intro h,
   cases h with hPQ hPR,
-  cases hPQ with hP hQ,
-  split,
-  exact hP,
-  left,
-  exact hQ,
-  cases hPR with hP hR,
-  split,
-  exact hP,
-  right,
-  exact hR,
+    cases hPQ with hP hQ,
+      split,
+      exact hP,
+      left,
+      exact hQ,
+    cases hPR with hP hR,
+      split,
+      exact hP,
+      right,
+      exact hR,
 end
 
 theorem distr_disj_conj :
@@ -294,17 +295,17 @@ begin
   intro h,
   split,
   cases h with hP hQR,
-        left, 
-        exact hP,
-  cases hQR with hQ hR,
-        right,
-        exact hQ,
+    left, 
+    exact hP,
+    cases hQR with hQ hR,
+      right,
+      exact hQ,
   cases h with hP hQR,
-        left,
-        exact hP,
-        right,
-  cases hQR with hQ hR,
-        exact hR,
+    left,
+    exact hP,
+    right,
+    cases hQR with hQ hR,
+      exact hR,
 end
 
 theorem distr_disj_conj_converse :
@@ -312,15 +313,15 @@ theorem distr_disj_conj_converse :
 begin
   intro h,
   cases h with hPQ hPR, 
-  cases hPR with hP hR,
-  left,
-  exact hP,
-  cases hPQ with hP hQ,
-  left,
-  exact hP,
-  have hQR : Q ∧ R, from and.intro hQ hR,
-  right,
-  exact hQR,
+    cases hPR with hP hR,
+      left,
+      exact hP,
+    cases hPQ with hP hQ,
+        left,
+        exact hP,
+    have hQR : Q ∧ R, from and.intro hQ hR,
+       right,
+       exact hQR,
   
 end
 
@@ -337,7 +338,6 @@ begin
   split,
   exact hP,
   exact hQ,
-
 end
 
 theorem uncurry_prop :
@@ -345,11 +345,9 @@ theorem uncurry_prop :
 begin
   intros h hPQ,
   cases hPQ with hP hQ,
-  apply h,
-  exact hP,
-  exact hQ,
-  
-
+    apply h,
+    exact hP,
+    exact hQ,
 end
 
 
@@ -362,7 +360,6 @@ theorem impl_refl :
 begin
   intro hP,
   exact hP,
-
 end
 
 ------------------------------------------------
@@ -390,7 +387,7 @@ theorem weaken_conj_right :
 begin
   intro hPQ,
   cases hPQ with hP hQ,
-  exact hP,
+    exact hP,
 end
 
 theorem weaken_conj_left :
@@ -398,7 +395,7 @@ theorem weaken_conj_left :
 begin
   intro hPQ,
   cases hPQ with hP hQ,
-  exact hQ,
+    exact hQ,
 end
 
 theorem conj_idempot :
@@ -407,11 +404,11 @@ begin
   split,
   intro hPP,
   cases hPP with hP,
-  exact hP,
-  intro hP,
-  split,
-  exact hP,
-  exact hP,
+    exact hP,
+    intro hP,
+    split,
+    exact hP,
+    exact hP,
 end
 
 theorem disj_idempot :
@@ -420,11 +417,11 @@ begin
   split,
   intro hPP,
   cases hPP with hP,
-  exact hP,
-  exact hPP,
-  intro hP,
-  left,
-  exact hP,
+    exact hP,
+    exact hPP,
+    intro hP,
+    left,
+    exact hP,
 end
 
 end propositional
@@ -446,12 +443,12 @@ variables P Q  : U -> Prop
 theorem demorgan_exists :
   ¬(∃x, P x) → (∀x, ¬P x)  :=
 begin
-   intro hnE,
-   intro k,
-   intro hP,
-   apply hnE,
-   existsi k,
-   exact hP,
+  intro hnE,
+  intro k,
+  intro hP,
+  apply hnE,
+  existsi k,
+  exact hP,
 end
 
 theorem demorgan_exists_converse :
@@ -460,9 +457,9 @@ begin
   intro hfAll,
   intro hE,
   cases hE with k hP,
-  have hnPk : ¬P k := hfAll k,
-    apply hnPk,
-    exact hP,
+    have hnPk : ¬P k := hfAll k,
+      apply hnPk,
+      exact hP,
 end
 
 theorem demorgan_forall :
@@ -473,8 +470,8 @@ begin
     apply hnfAll,
     intro k,
   by_contra hnPk,
-  apply hnE,
-  existsi k,
+    apply hnE,
+    existsi k,
   exact hnPk,
 end
 
@@ -484,8 +481,8 @@ begin
   intro hE,
   intro hnfAll,
   cases hE with k hnP,
-  have hP : P k := hnfAll k,
-  contradiction,
+    have hP : P k := hnfAll k,
+      contradiction,
 
 end
 
@@ -517,8 +514,8 @@ begin
   intro hE,
   intro hnfAll,
   cases hE with k hP,
-  have hnP : ¬P k := hnfAll k,
-  contradiction,
+    have hnP : ¬P k := hnfAll k,
+      contradiction,
 end
 
 theorem forall_as_neg_exists :
@@ -527,8 +524,8 @@ begin
   intro hfAll,
   intro hE,
   cases hE with k hnP,
-  apply hnP,
-  apply hfAll,
+    apply hnP,
+    apply hfAll,
 end
 
 theorem forall_as_neg_exists_converse :
@@ -537,9 +534,9 @@ begin
   intro hnE,
   intro k,
   by_contra hnP,
-  apply hnE,
-  existsi k,
-  exact hnP,
+    apply hnE,
+    existsi k,
+    exact hnP,
 end
 
 theorem exists_as_neg_forall_converse :
@@ -547,7 +544,7 @@ theorem exists_as_neg_forall_converse :
 begin
   intros hnfAll,
   by_contra hnE,
-  apply hnfAll,
+    apply hnfAll,
   intro k,
   intro hP,
   apply hnE,
@@ -581,12 +578,12 @@ theorem exists_conj_as_conj_exists :
 begin
   intros hEAnd,
   cases hEAnd with k hPQ,
-  cases hPQ with hP hQ,
-  split,
-  existsi k,
-  exact hP,
-  existsi k,
-  exact hQ,
+    cases hPQ with hP hQ,
+      split,
+      existsi k,
+      exact hP,
+      existsi k,
+      exact hQ,
 
 end
 
@@ -595,13 +592,13 @@ theorem exists_disj_as_disj_exists :
 begin
   intros hEOr,
   cases hEOr with k hPQ,
-  cases hPQ with hP hQ,
-  left,
-  existsi k,
-  exact hP,
-  right,
-  existsi k,
-  exact hQ,
+    cases hPQ with hP hQ,
+      left,
+      existsi k,
+      exact hP,
+    right,
+    existsi k,
+    exact hQ,
 end
 
 theorem exists_disj_as_disj_exists_converse :
@@ -639,10 +636,10 @@ theorem forall_conj_as_conj_forall_converse :
 begin
   intro hfAllAnd,
   cases hfAllAnd with hfP hfQ,
-  intro k,
-  split,
-  apply hfP,
-  apply hfQ,
+    intro k,
+    split,
+    apply hfP,
+    apply hfQ,
 end
 
 
@@ -652,10 +649,10 @@ begin
   intro hfAllOr,
   intro k,
   cases hfAllOr with hfP hfQ,
-  left,
-  apply hfP,
-  right,
-  apply hfQ,
+    left,
+    apply hfP,
+    right,
+    apply hfQ,
 end
 
 
